@@ -12,7 +12,7 @@ function About() {
       <br />
       <h2>About</h2>
       <br />
-      <a href="https://ko-fi.com/I3I51NB3J" target="_blank">
+      <a href="https://ko-fi.com/" target="_blank">
         <img
           height="36"
           src="https://cdn.ko-fi.com/cdn/kofi1.png?v=2"

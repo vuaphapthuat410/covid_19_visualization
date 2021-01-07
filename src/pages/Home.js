@@ -219,9 +219,10 @@ function Home() {
         id="dropdown-menu-align-right"
         onSelect={(e) => {onClickSearch(e)}}
         >
-          <Dropdown.Item eventKey="deaths">deaths</Dropdown.Item>
-          <Dropdown.Item eventKey="recovered">recovered</Dropdown.Item>
-          <Dropdown.Item eventKey="cases">cases</Dropdown.Item>
+          <Dropdown.Item eventKey="default">Default</Dropdown.Item>
+          <Dropdown.Item eventKey="deaths">Deaths</Dropdown.Item>
+          <Dropdown.Item eventKey="recovered">Recovered</Dropdown.Item>
+          <Dropdown.Item eventKey="cases">Cases</Dropdown.Item>
       </DropdownButton>
       <Columns queries={queries}>{countries}</Columns>
     </div>
