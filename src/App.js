@@ -18,7 +18,6 @@ function App() {
           <Route path="/graph" component={Graph} />
           <Route path="/about" component={About} />
         </Switch>
-        <Footer />
       </div>
     </Router>
   );

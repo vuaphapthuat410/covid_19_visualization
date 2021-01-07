@@ -10,6 +10,9 @@ import ReactTooltip from "react-tooltip";
 import RingLoader from "react-spinners/RingLoader";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Button from 'react-bootstrap/Button';
 
 function Home() {
   const [latest, setLatest] = useState([]);
@@ -17,6 +20,24 @@ function Home() {
   const [searchCountries, setSearchCountries] = useState("");
   const [loading, setLoading] = useState(true);
   const [darkTheme, setDarkTheme] = useState(false);
+  const [option_search, setOptionSearch] = useState('');
+  const onClickSearch = (e) => {
+    setOptionSearch(e);
+    let url = '';
+    url = 'https://corona.lmao.ninja/v3/covid-19/countries?sort='+ e;
+    axios
+      .all([
+        axios.get(url),
+      ])
+      .then((responseArr) => {
+        setResults(responseArr[0].data);
+        setLoading(false);
+        console.log(results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   useEffect(() => {
     axios
@@ -25,7 +46,7 @@ function Home() {
         axios.get("https://corona.lmao.ninja/v2/countries"),
       ])
       .then((responseArr) => {
-        setLatest(responseArr[0].data);
+        setLatest(responseArr[0].data)
         setResults(responseArr[1].data);
         setLoading(false);
       })
@@ -42,6 +63,7 @@ function Home() {
       ? item.country.toLowerCase().includes(searchCountries.toLowerCase())
       : item;
   });
+
 
   const countries = filterCountries.map((data, i) => {
     return (
@@ -89,6 +111,7 @@ function Home() {
         color: darkTheme ? "white" : "black",
       }}
     >
+      
       <br />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <RingLoader size={50} color={"green"} loading={loading} />
@@ -190,6 +213,16 @@ function Home() {
           />
         </Form.Group>
       </Form>
+      <DropdownButton
+        alignRight
+        title={option_search ? option_search : 'Sort'}
+        id="dropdown-menu-align-right"
+        onSelect={(e) => {onClickSearch(e)}}
+        >
+          <Dropdown.Item eventKey="deaths">deaths</Dropdown.Item>
+          <Dropdown.Item eventKey="recovered">recovered</Dropdown.Item>
+          <Dropdown.Item eventKey="cases">cases</Dropdown.Item>
+      </DropdownButton>
       <Columns queries={queries}>{countries}</Columns>
     </div>
   );
