@@ -33,7 +33,7 @@ function About() {
       >
         <h4>Who built this website?</h4>
         <div style={{ fontSize: "20px" }}>
-          This site is created by Bao Anh & Manh Le. Students from HEDSPI K62.
+          This site was created by Bao Anh & Manh Le. Students from HEDSPI K62.
         </div>
         <br />
         <h4>How to connect?</h4>
