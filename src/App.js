@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Graph from "./pages/Graph";
+import Vietnam from "./pages/Vietnam"
 import Nav from "./Nav";
 import Footer from "./Footer";
 import Symptom from "./pages/Symptom";
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/symptom" component={Symptom} />
           <Route path="/graph" component={Graph} />
+          <Route path="/vietnam" component={Vietnam} />
           <Route path="/about" component={About} />
         </Switch>
       </div>

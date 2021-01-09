@@ -32,6 +32,17 @@ function Nav() {
           <li>Graph</li>
         </Link>
         <Link
+          style={{
+            color: "white",
+            textDecoration: "none",
+            marginTop: "10px",
+            marginRight: "40px",
+          }}
+          to="/vietnam"
+        >
+          <li>Vietnam</li>
+        </Link>
+        <Link
           style={{ color: "white", textDecoration: "none", marginTop: "10px" }}
           to="/about"
         >
