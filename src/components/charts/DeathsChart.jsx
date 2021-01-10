@@ -12,7 +12,7 @@ const DeathsChart = (props) => {
         labels: Object.keys(status["deaths"]).map((res) => res.substr(0, 5)),
         datasets: [
           {
-            label: "Số ca tử vong",
+            label: "Deaths",
             data: Object.values(status["deaths"]),
             backgroundColor: ["rgba(9, 42, 65, 0.0)"],
             borderColor: [color],
@@ -26,7 +26,7 @@ const DeathsChart = (props) => {
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: "Số ca tử vong",
+          text: "Deaths",
           fontSize: 14,
           fontColor: color,
         },

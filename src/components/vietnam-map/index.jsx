@@ -35,7 +35,7 @@ class WelcomePage extends React.Component {
 
   componentDidMount() {
     // fetch("https://api.covid19api.com/live/country/vietnam/status/confirmed")
-    fetch("https://disease.sh/v3/covid-19/historical/Vietnam?lastdays=10")
+    fetch("https://disease.sh/v3/covid-19/historical/Vietnam?lastdays=30")
       .then((res) => res.json())
       .then((res) => {
         const timeline = res.timeline
@@ -90,19 +90,19 @@ class WelcomePage extends React.Component {
                       </div>
                       <div className="font-size-medium font-weight-500">
                         <div>
-                          Lây nhiễm:{" "}
+                          Cases:{" "}
                           <span className="casenum text-bold">
                             {this.state.caseNums}
                           </span>
                         </div>
                         <div>
-                          Tử vong:{" "}
+                          Deaths:{" "}
                           <span className="deathnum text-bold">
                             {this.state.death}
                           </span>
                         </div>
                         <div>
-                          Chữa khỏi:{" "}
+                          Recovered:{" "}
                           <span className="recovernum text-bold">
                             {this.state.recovered}
                           </span>

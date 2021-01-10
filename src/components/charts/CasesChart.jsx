@@ -12,7 +12,7 @@ const CasesChart = (props) => {
         labels: Object.keys(status["cases"]).map((res) => res.substr(0, 5)),
         datasets: [
           {
-            label: "Tổng số ca nhiễm",
+            label: "Cases",
             backgroundColor: ["rgba(94, 211, 129, 0.0)"],
             borderColor: [color],
             pointBorderColor: color,
@@ -26,7 +26,7 @@ const CasesChart = (props) => {
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: "Tổng số ca nhiễm",
+          text: "Cases",
           fontSize: 14,
           fontColor: color,
         },

@@ -12,7 +12,7 @@ const RecoveredChart = (props) => {
         labels: Object.keys(status["recovered"]).map((res) => res.substr(0, 5)),
         datasets: [
           {
-            label: "Số ca phục hồi",
+            label: "Recovered",
             data: Object.values(status["recovered"]),
             backgroundColor: ["rgba(168, 218, 220, 0.0)"],
             borderColor: [color],
@@ -26,7 +26,7 @@ const RecoveredChart = (props) => {
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: "Số ca phục hồi",
+          text: "Recovered",
           fontSize: 14,
           fontColor: color,
         },
