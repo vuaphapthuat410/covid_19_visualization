@@ -1,3 +1,3 @@
-import VietnamPage from "./vietnam-page";
+import Vietnam from "./vietnam-map";
 
-export { VietnamPage };
+export {Vietnam};

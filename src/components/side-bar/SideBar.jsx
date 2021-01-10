@@ -21,9 +21,13 @@ import DichTe from "../form-dich-te";
 import Isolation from "../form-isolation";
 import Health from "../form-health";
 import IsolationDeclarationTable from "../isolation-declaration";
-import {GET_ALL_QUARANTINE} from "../../plugins/api"
-
-
+import EpidTable from "../epid-declaration"
+import HealthTable from "../health-declaration"
+import {
+  GET_ALL_HEALTH,
+  GET_ALL_QUARANTINE,
+  GET_ALL_EPID,
+} from "../../plugins/api";
 class Aside extends Component {
   state = {
     loading: false,
@@ -54,33 +58,74 @@ class Aside extends Component {
   handleGetAllQuanrantine() {
     fetch(GET_ALL_QUARANTINE)
       .then((res) => res.json())
-      .then(res => {
-        console.log("All Quaran Res", res)
+      .then((res) => {
+        console.log("All Quaran Res", res);
+        // if(res.content[0])
+        // {}
         const columns = Object.keys(res.content[0]);
-        const refactoredColumns = columns.map(column => {
+        const refactoredColumns = columns.map((column) => {
           return {
             title: column.charAt(0).toUpperCase() + column.slice(1),
             dataIndex: column,
-            key: column
-          }
-        })
+            key: column,
+          };
+        });
         const valueData = res.content.map((data, index) => {
           return {
             key: index,
-            ...data
-          }
-        })
-
-        console.log("value data", valueData)
+            ...data,
+          };
+        });
         this.setState({
           isolationTableColumns: refactoredColumns,
-          isolationTableData: valueData
-        })
+          isolationTableData: valueData,
+        });
       });
   }
-
+  handleGetAllEpid() {
+    fetch(GET_ALL_EPID)
+      .then((res) => res.json())
+      .then((res) => {
+        let valueData = res.content
+        for (let row of valueData) {
+          row.arrTime = row.arrTime.slice(0, 10);
+        }
+        console.log("epid", valueData)
+        this.setState({
+          epidData: valueData,
+        });
+      });
+  }
+  handleGetAllHealth() {
+    fetch(GET_ALL_HEALTH)
+      .then((res) => res.json())
+      .then((res) => {
+        let valueData = res.content;
+        for (let row of valueData) {
+          row["tags"] = [];
+          row["disease"] = [];
+          if (row.fever) row.tags.push("Sốt");
+          if (row.cough) row.tags.push("Ho");
+          if (row.shortWinded) row.tags.push("Khó thở");
+          if (row.pneumonia) row.tags.push("Viêm phổi");
+          if (row.soreThroat) row.tags.push("Viêm họng");
+          if (row.tired) row.tags.push("Mệt");
+          if (row.chronicBlood) row.disease.push("Máu mãn tính");
+          if (row.chronicKidney) row.disease.push("Thận mãn tính");
+          if (row.chronicLiver) row.disease.push("Gan mãn tính");
+          if (row.chronicLung) row.disease.push("Phổi mãn tính");
+          if (row.heartRelatedDiseases) row.disease.push("Tim mạch");
+        }
+        console.log("epid", valueData);
+        this.setState({
+          healthData: valueData,
+        });
+      });
+  }
   componentDidMount() {
-    this.handleGetAllQuanrantine()
+    this.handleGetAllQuanrantine();
+    this.handleGetAllHealth();
+    this.handleGetAllEpid();
   }
 
   render() {
@@ -150,70 +195,70 @@ class Aside extends Component {
         <Modal
           width="60vw"
           visible={this.state.healthVisible}
-          title="Khai Báo Sức Khỏe"
+          title="Quản lý Khai Báo Sức Khỏe"
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              Return
-            </Button>,
             <Button
               key="submit"
               type="primary"
               loading={loading}
               onClick={this.handleOk}
             >
-              Submit
+              OK
             </Button>,
           ]}
         >
-          <Health />
+          <HealthTable
+            columns={this.state.healthColumns}
+            data={this.state.healthData}
+          />
         </Modal>
 
         <Modal
           width="60vw"
           visible={this.state.dichTeVisible}
-          title="Khai Báo Dịch Tễ"
+          title="Quản lý Khai Báo Dịch Tễ"
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              Return
-            </Button>,
             <Button
               key="submit"
               type="primary"
               loading={loading}
               onClick={this.handleOk}
             >
-              Submit
+              OK
             </Button>,
           ]}
         >
-          <DichTe />
+          <EpidTable
+            columns={this.state.epidColumns}
+            data={this.state.epidData}
+          />
         </Modal>
 
         <Modal
           width="60vw"
           visible={this.state.isolationVisible}
-          title="Khai Báo Cách Ly"
+          title="Quản lý Khai Báo Cách Ly"
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              Return
-            </Button>,
             <Button
               key="submit"
               type="primary"
               loading={loading}
               onClick={this.handleOk}
             >
-              Submit
+              OK
             </Button>,
           ]}
         >
-          <IsolationDeclarationTable columns={this.state.isolationTableColumns} data={this.state.isolationTableData} />
+          <IsolationDeclarationTable
+            columns={this.state.isolationTableColumns}
+            data={this.state.isolationTableData}
+          />
         </Modal>
       </>
     );

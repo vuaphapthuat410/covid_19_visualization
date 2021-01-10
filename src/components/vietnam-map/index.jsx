@@ -7,11 +7,10 @@ import MapChart from "./MapChart";
 import CasesChart from "../charts/CasesChart";
 import DeathsChart from "../charts/DeathsChart";
 import RecoveredChart from "../charts/RecoveredChart";
-import Aside from "../side-bar/SideBar";
 import "./style.css";
 import { Content } from "antd/lib/layout/layout";
 
-class VietnamPage extends React.Component {
+class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
     
@@ -36,7 +35,7 @@ class VietnamPage extends React.Component {
 
   componentDidMount() {
     // fetch("https://api.covid19api.com/live/country/vietnam/status/confirmed")
-    fetch("https://disease.sh/v3/covid-19/historical/Vietnam?lastdays=30")
+    fetch("https://disease.sh/v3/covid-19/historical/Vietnam?lastdays=10")
       .then((res) => res.json())
       .then((res) => {
         const timeline = res.timeline
@@ -55,10 +54,7 @@ class VietnamPage extends React.Component {
         <Row className="welcome-page-body">
           <Col span={24} className="welcome-page-body-main-col">
             <Row className="covid-19-overview">
-              <Col span={4} className="covid-19-sidebar">
-                <Aside />
-              </Col>
-              <Col span={12} className="covid-19-overview-banner">
+              <Col span={16} className="covid-19-overview-banner">
                 <Row className="covid-19-overview-top"> {renderLabel()}</Row>
                 <Row className="covid-19-analyst-chart">
                   <Col span={8}>
@@ -125,7 +121,7 @@ class VietnamPage extends React.Component {
   }
 }
 
-export default VietnamPage;
+export default WelcomePage;
 function renderLabel() {
   return (
     <>
